@@ -1,7 +1,7 @@
-# SWE 573
-# SW Development Practice
+# SWE 573 - SW Development Practice
 
-Professor: Suzan Üsküdarlı
+Professor: Suzan Üsküdarlı  
+Topic: TBD  
 This project is developed for a course at Bogazici University. 
 
 ## Software project lifecycle can be found as below:
