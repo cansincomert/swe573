@@ -20,4 +20,7 @@ from . import views
 urlpatterns = [
     path("", views.HomePage.as_view(), name ="home"),
     path("admin/", admin.site.urls),
+    path("collector/", include("collector.urls",namespace = "collector")),
+    path("collector/", include("django.contrib.auth.urls")),
+
 ]
