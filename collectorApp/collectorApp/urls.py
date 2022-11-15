@@ -22,5 +22,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("collector/", include("collector.urls",namespace = "collector")),
     path("collector/", include("django.contrib.auth.urls")),
+    path("test/", views.TestPage.as_view(), name="test"),
+    path("thanks/", views.ThanksPage.as_view(), name="thanks"),
 
 ]
