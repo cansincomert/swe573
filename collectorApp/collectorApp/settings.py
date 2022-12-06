@@ -25,7 +25,9 @@ SECRET_KEY = "django-insecure-(%6c++t3k$9ez_htb(5yb(#k^$_$lqlaitz)5xp!3ie!!r_z8r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "*"
+]
 
 
 # Application definition
@@ -80,8 +82,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'collectorApp',
         'USER': 'cansin',
-        'PASSWORD': 'cansin',
-        'HOST': 'localhost',
+        'PASSWORD': 'password',
+        #password cansin lokaldeki database için
+        'HOST': os.environ.get("HOST","localhost"), 
         'PORT': '5432',
     }
 }
