@@ -1,3 +1,4 @@
+#views.py
 from django.shortcuts import render
 
 # Create your views here.
@@ -13,6 +14,7 @@ from braces.views import SelectRelatedMixin
 
 from . import models
 from . import forms
+
 
 
 from django.contrib.auth import get_user_model
@@ -51,15 +53,27 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
             return queryset.filter(user__username__iexact = self.kwargs.get("username"))
     
 class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
-        fields = ("message","group")
-        #fields = ("message","tags","link","group")
-        model = models.Post
+    fields = ("message", "group", "title", "description", "link", "tags")
+    model = models.Post
+    template_name = 'posts/post_form.html'
+    
 
-        def form_valid(self,form):
-            self.object = form.save(commit=False)
-            self.object.user = self.request.user
-            self.object.save()
-            return super().form_valid(form)
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.title = form.cleaned_data.get("title")
+        self.object.description = form.cleaned_data.get("description")
+        self.object.link = form.cleaned_data.get("link")
+                
+        selected_tags = form.cleaned_data.get("tags")
+        tags = []
+        for tag_name in selected_tags:
+            tag, created = Tag.objects.get_or_create(name=tag_name)
+            tags.append(tag)
+        self.object.tags.set(tags)
+
+        self.object.save()
+        return super().form_valid(form)
     
 class DeletePost(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
         model = models.Post
