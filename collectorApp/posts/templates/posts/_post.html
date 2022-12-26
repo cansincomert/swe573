@@ -11,6 +11,7 @@
 			<a href="{{ post.link }}" target="_blank">{{ post.link }}</a>
 			<div class="form-group">
 				<label for="id_tags">Tags</label>
+				{{ form.tags }}
 			</div>
 			<time class="time"><a href="{% url 'posts:single' username=post.user.username pk=post.pk %}">{{ post.created_at }}</a></time>
 			{% if post.group %}

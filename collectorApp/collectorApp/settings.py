@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "bootstrap3",
     "groups",
     "posts",
+    "taggit",
+    
 ]
 
 MIDDLEWARE = [

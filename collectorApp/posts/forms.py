@@ -13,4 +13,4 @@ class PostCreateView(CreateView):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['tags'].widget = forms.CharField(widget=forms.TextInput)
+        self.fields['tags'] = forms.CharField(widget=forms.TextInput)

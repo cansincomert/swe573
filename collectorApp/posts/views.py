@@ -56,24 +56,30 @@ class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
     fields = ("message", "group", "title", "description", "link", "tags")
     model = models.Post
     template_name = 'posts/post_form.html'
-    
 
+    print("test");
+    return;
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
         self.object.title = form.cleaned_data.get("title")
         self.object.description = form.cleaned_data.get("description")
         self.object.link = form.cleaned_data.get("link")
-                
-        selected_tags = form.cleaned_data.get("tags")
+        
+    # Split the tags string on commas and create a list of tag names
+        tag_names = form.cleaned_data.get("tags").split(',')
         tags = []
-        for tag_name in selected_tags:
-            tag, created = Tag.objects.get_or_create(name=tag_name)
+        # Loop through the tag names and create or retrieve the Tag objects
+        for tag_name in tag_names:
+            tag = models.Tag.objects.get_or_create(name=tag_name)
             tags.append(tag)
+        # Set the tags for the post
         self.object.tags.set(tags)
-
+    
         self.object.save()
         return super().form_valid(form)
+
+
     
 class DeletePost(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
         model = models.Post

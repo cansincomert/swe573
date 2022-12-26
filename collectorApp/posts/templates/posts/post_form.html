@@ -1,4 +1,4 @@
-<!--post_form.html-->
+<!-- post_form.html -->
 {% extends "posts/post_base.html" %}
 
 {% load bootstrap3 %}
@@ -7,7 +7,30 @@
 <h4>Create a New Post</h4>
 <form method="post" action="{% url 'posts:create' %}">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="form-group">
+        <label for="id_title">Title:</label>
+        <input type="text" name="title" id="id_title" value="{{ form.title.value }}">
+    </div>
+    <div class="form-group">
+        <label for="id_message">Message:</label>
+        <textarea name="message" id="id_message">{{ form.message.value }}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="id_group">Group:</label>
+        {{ form.group }}
+    </div>
+    <div class="form-group">
+        <label for="id_tags">Tags: (seperate with commas)</label>
+        <input type="text" name="tags" id="id_tags" value="{{ form.tags.value }}">
+    </div>
+    <div class="form-group">
+        <label for="id_description">Description:</label>
+        <textarea name="description" id="id_description">{{ form.description.value }}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="id_link">Link:</label>
+        <input type="text" name="link" id="id_link" value="{{ form.link.value }}">
+    </div>
     <input type="submit" value="Create Post">
 </form>
 {% endblock %}
