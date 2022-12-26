@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+    color:white;
+  }
+
+#navbar {
+    width:100%; 
+    background-color:#f26522;
+}
+.nav-bar {
+  display: flex;
+}
+

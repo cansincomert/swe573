@@ -39,8 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",
     "collectorApp",
     "bootstrap3",
+    "groups",
+    "posts",
 ]
 
 MIDDLEWARE = [
@@ -82,8 +85,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'collectorApp',
         'USER': 'cansin',
-        'PASSWORD': 'password',
+        'PASSWORD': 'cansin',
         #password cansin lokaldeki database için
+        #password password aws database için
         'HOST': os.environ.get("HOST","localhost"), 
         'PORT': '5432',
     }
@@ -125,7 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIR = [os.path.join(BASE_DIR,"static")]
+STATICFILES_DIRS = [os.path.join(BASE_DIR,"static")]
 
 LOGIN_REDIRECT_URL = 'test'
 LOGOUT_REDIRECT_URL = 'thanks'
