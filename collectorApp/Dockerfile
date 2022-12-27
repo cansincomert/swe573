@@ -17,4 +17,4 @@ COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy project
-COPY..
+COPY . .
