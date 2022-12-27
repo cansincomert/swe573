@@ -53,31 +53,15 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
             return queryset.filter(user__username__iexact = self.kwargs.get("username"))
     
 class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
-    fields = ("message", "group", "title", "description", "link", "tags")
-    model = models.Post
-    template_name = 'posts/post_form.html'
-
-    print("test");
-    return;
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.user = self.request.user
-        self.object.title = form.cleaned_data.get("title")
-        self.object.description = form.cleaned_data.get("description")
-        self.object.link = form.cleaned_data.get("link")
-        
-    # Split the tags string on commas and create a list of tag names
-        tag_names = form.cleaned_data.get("tags").split(',')
-        tags = []
-        # Loop through the tag names and create or retrieve the Tag objects
-        for tag_name in tag_names:
-            tag = models.Tag.objects.get_or_create(name=tag_name)
-            tags.append(tag)
-        # Set the tags for the post
-        self.object.tags.set(tags)
-    
-        self.object.save()
-        return super().form_valid(form)
+        #fields = ("title","message","group","link", "description")
+        #fields = ("message","tags","link","group")
+        form_class = forms.PostForm
+        model = models.Post
+        def form_valid(self,form):
+            self.object = form.save(commit=False)
+            self.object.user = self.request.user
+            self.object.save()
+            return super().form_valid(form)
 
 
     

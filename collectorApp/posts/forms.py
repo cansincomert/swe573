@@ -1,16 +1,42 @@
 #forms.py
+
+
 from django import forms
 
-from groups.models import Group, User
-from posts.models import Post
+from posts import models
+from groups.models import Group
 
-from django.views.generic import CreateView
 
-class PostCreateView(CreateView):
-    model = Post
-    fields = ['title', 'message', 'group', 'user', 'link', 'tags', 'description']
-    template_name = 'posts/post_form.html'
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = models.Post
+        fields = ("title","message","group","link", "description")
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
-        self.fields['tags'] = forms.CharField(widget=forms.TextInput)
+        if user is not None:
+            self.fields["group"].queryset = (
+                models.Group.objects.filter(
+                    pk__in=user.groups.values_list("group__pk")
+                )
+            )
+
+
+
+class FilterPostForm(forms.ModelForm):
+    
+    class Meta():
+
+        model = models.Post
+        fields = ("title","message","group","link", "description")
+
+
+
+    def __init__(self, *args, **kwargs):
+
+        user = kwargs.pop("user", None)
+
+        super().__init__(*args, **kwargs)
+
+        self.fields['group'].queryset = Group.objects.filter(members__in=[user])

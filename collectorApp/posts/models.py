@@ -25,7 +25,7 @@ class Post(models.Model):
     group = models.ForeignKey(Group, related_name="posts", null=True,blank=True,on_delete=models.CASCADE)
     title = models.CharField(max_length=255,null=True)
     link = models.URLField(default="http://example.com",null=True)
-    tags = models.ManyToManyField(Tag, related_name='posts')
+    #tags = models.ManyToManyField(Tag, related_name='posts')
     description = models.TextField(default="Enter a description here", null=False)
     
     
@@ -45,7 +45,3 @@ class Post(models.Model):
     
         
 
-            
-
-
-# Create your models here.
