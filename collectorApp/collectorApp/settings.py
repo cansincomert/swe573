@@ -83,17 +83,26 @@ WSGI_APPLICATION = "collectorApp.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "db",  # set in docker-compose.yml
+        "PORT": 5432,  # default postgres port
+
+    
+    }
+}
+
+''' 'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'collectorApp',
         'USER': 'cansin',
         'PASSWORD': 'cansin',
         #password cansin lokaldeki database için
         #password password aws database için
         'HOST': os.environ.get("HOST","localhost"), 
-        'PORT': '5432',
-    }
-}
-
+        'PORT': '5432', '''
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
